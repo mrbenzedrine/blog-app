@@ -1,0 +1,38 @@
+.new_blog_entry_input_fields {
+    width: 800px;
+    height: 500px;
+
+    margin: 7px auto;
+
+    background-color: #555;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.new_entry_title_input {
+}
+
+.new_entry_date_input {
+}
+
+.new_entry_text_area {
+    resize: vertical;
+    width: 90%;
+
+    /* max-height is this percentage value because we need to take into
+    account that the textarea element doesn't start at the very
+    top of its container but partway down */
+    max-height: 63%;
+}
+
+.new_blog_entry_form {
+    padding: 20px 40px 40px 40px;
+    width: inherit;
+    height: inherit;
+}
+
+.input_header {
+    font-style: italic;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}

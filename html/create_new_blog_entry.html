@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Blog App - Create new entry</title>
+
+        <link rel="stylesheet" type="text/css" href="../css/main_stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="../css/create_new_blog_entry.css">
+
+    </head>
+
+    <body>
+        <h1 id="blog_title" >Blog Title</h1>
+        <h2 id="blog_author" >Author name</h2>
+        <div id="toolbar_container" >
+            <button id="home_button" class="toolbar_button" >Home</button>
+        </div>
+
+        <div class="new_blog_entry_input_fields" >
+            <form class="new_blog_entry_form" accept-charset="utf-8" >
+                <p class="input_header" >Entry Title:</p>
+                <input class="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" >
+                <p class="input_header">Entry Date:</p>
+                <input class="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" >
+                <p class="input_header">Entry:</p>
+                <textarea class="new_entry_text_area" placeholder="Blog entry" ></textarea> <br>
+                <button class="new_entry_submit_button" >Submit</button>
+            </form>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById('home_button').onclick = function(){
+            location.href = '../index.html';
+        };
+    </script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Blog App</title>
+        <link rel="stylesheet" type="text/css" href="css/main_stylesheet.css">
+    </head>
+
+    <body>
+        <h1 id="blog_title" >Blog Title</h1>
+        <h2 id="blog_author" >Author name</h2>
+        <div id="toolbar_container" >
+            <button id="new_entry_button" class="toolbar_button" >New entry</button>
+        </div>
+        <div class="blog_entry_container" >
+            <div class="blog_entry_buttons_container" >
+                <button class="blog_entry_button" >Edit</button>
+                <button class="blog_entry_button" >Delete</button>
+            </div>
+            <div class="blog_entry_all_text_stuff" >
+                <h1 class="blog_entry_title" >Entry Title</h1>
+                <h2 class="blog_entry_date" >Entry date</h2>
+                <p class="blog_entry_paragraph" >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+            </div>
+        </div>
+
+        <div class="blog_entry_container" >
+            <div class="blog_entry_buttons_container">
+                <button class="blog_entry_button" >Edit</button>
+                <button class="blog_entry_button" >Delete</button>    
+            </div>
+            <div class="blog_entry_all_text_stuff" >
+                <h1 class="blog_entry_title" >Another Entry Title</h1>
+                <h2 class="blog_entry_date" >Another entry date</h2>
+                <p class="blog_entry_paragraph" >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+            </div>
+            
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById("new_entry_button").onclick = function (){
+            location.href = 'html/create_new_blog_entry.html';
+        };
+    </script>
+
+</html>
