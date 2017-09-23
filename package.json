@@ -1,0 +1,26 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "Basic blog web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "ejs": "^2.5.7",
+    "express": "*",
+    "express-validator": "^4.2.0",
+    "mongojs": "^2.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrbenzedrine/blog-app.git"
+  },
+  "author": "Yousef Moazzam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrbenzedrine/blog-app/issues"
+  },
+  "homepage": "https://github.com/mrbenzedrine/blog-app#readme"
+}

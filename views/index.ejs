@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="css/main_stylesheet.css">
+    </head>
+
+    <body>
+
+    <h1 id="blog_title" >Blog Title</h1>
+    <h2 id="blog_author" >Author name</h2>
+    <div id="toolbar_container" >
+        <button id="new_entry_button" class="toolbar_button" >New entry</button>
+    </div>
+
+    <% blog_entries.forEach(function(blog_entry){ %>
+
+        <div class="blog_entry_container" >
+            <div class="blog_entry_buttons_container" >
+                <button class="blog_entry_button" >Edit</button>
+                <button class="blog_entry_button" >Delete</button>
+            </div>
+            <div class="blog_entry_all_text_stuff" >
+                <h1 class="blog_entry_title" ><%= blog_entry.entry_title %></h1>
+                <h2 class="blog_entry_date" ><%= blog_entry.entry_date %></h2>
+                <p class="blog_entry_paragraph" >
+                    <%= blog_entry.entry_text %>
+                </p>
+            </div>
+        </div>
+
+    <% }) %>
+
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById("new_entry_button").onclick = function (){
+            location.href = 'create_new_blog_entry';
+        };
+    </script>
+
+</html>
