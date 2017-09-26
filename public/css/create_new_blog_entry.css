@@ -39,4 +39,10 @@
 
 .new_entry_error {
     color: red;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.new_blog_entry_input_table {
+    width: 50%;
 }
