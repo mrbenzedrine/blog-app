@@ -21,6 +21,12 @@ app.use(bodyParser.urlencoded({
 // Set path for static resources (css files etc.)
 app.use(express.static(path.join(__dirname, 'public')))
 
+// Global variables (needs tp be put in its own middleware)
+app.use(function(req, res, next){
+    res.locals.errors = null; // the global var 'errors'
+    next();
+})
+
 // express-validator middleware
 app.use(expressValidator({
     errorFormatter: function(param, msg, value){
@@ -62,22 +68,42 @@ app.get('/create_new_blog_entry', function(req, res){
 // Post function
 app.post('/create_new_blog_entry', function(req, res){
 
-    var new_blog_entry = {
-        entry_title: req.body.new_entry_title,
-        entry_date: req.body.new_entry_date,
-        entry_text: req.body.new_entry_text
+    req.checkBody('new_entry_title', 'Entry title is required').notEmpty();
+    req.checkBody('new_entry_date', 'Entry date is required').notEmpty();
+    req.checkBody('new_entry_text', 'Entry text is required').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if(errors){
+        // If there are any errors, log to console and refresh the page
+        console.log('ERRORS');
+        console.log(errors);
+        res.render('create_new_blog_entry', {
+            title: 'Create new blog entry',
+            errors: errors
+        });
+    }
+    else {
+
+        var new_blog_entry = {
+            entry_title: req.body.new_entry_title,
+            entry_date: req.body.new_entry_date,
+            entry_text: req.body.new_entry_text
+        }
+
+        console.log(new_blog_entry);
+
+        // Now insert this into the database
+
+        db_blog_entries.blog_entries.insert(new_blog_entry, function(err, result){
+            if(err){
+                console.log(err);
+            }
+            res.redirect('/')
+        })
+
     }
 
-    console.log(new_blog_entry);
-
-    // Now insert this into the database
-
-    db_blog_entries.blog_entries.insert(new_blog_entry, function(err, result){
-        if(err){
-            console.log(err);
-        }
-        res.redirect('/')
-    })
 })
 
 app.listen(3000, function(){

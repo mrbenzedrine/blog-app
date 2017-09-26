@@ -20,11 +20,50 @@
             <form class="new_blog_entry_form" accept-charset="utf-8" method="POST" action="/create_new_blog_entry" >
                 <p class="input_header" >Entry Title:</p>
                 <input class="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" >
+
+                <% if(errors != undefined){ %>
+
+                    <p class="new_entry_error" >
+                        <% errors.forEach(function(error){ %>
+                            <% if(error.param == 'new_entry_title'){ %>
+                                <%= error.msg %>
+                            <% } %>
+                        <% }) %>
+                    </p>
+
+                <% } %>
+
                 <p class="input_header">Entry Date:</p>
                 <input class="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" >
+
+                <% if(errors != undefined){ %>
+
+                    <p class="new_entry_error" >
+                        <% errors.forEach(function(error){ %>
+                            <% if(error.param == 'new_entry_date'){ %>
+                                <%= error.msg %>
+                            <% } %>
+                        <% }) %>
+                    </p>
+
+                <% } %>
+
                 <p class="input_header">Entry:</p>
                 <textarea class="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ></textarea> <br>
                 <input class="new_entry_submit_button" type="submit" value="Submit" >
+
+                <% if(errors != undefined){ %>
+
+                    <p class="new_entry_error" >
+                        <% errors.forEach(function(error){ %>
+                            <% if(error.param == 'new_entry_text'){ %>
+                                <%= error.msg %>
+                            <% } %>
+                        <% }) %>
+                    </p>
+
+                <% } %>
+
             </form>
         </div>
     </body>
