@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title><%= title %></title>
+
+        <link rel="stylesheet" type="text/css" href="../css/main_stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="../css/update_blog_entry.css">
+
+    </head>
+
+    <body>
+        <h1 id="blog_title" >Blog Title</h1>
+        <h2 id="blog_author" >Author name</h2>
+        <div id="toolbar_container" >
+            <button id="home_button" class="toolbar_button" >Home</button>
+        </div>
+
+        <div class="update_blog_entry_input_fields" >
+            <form class="update_blog_entry_form" accept-charset="utf-8" method="POST" action="/update_blog_entry/<%=entry_data._id%>" >
+
+                <table class="update_blog_entry_input_table" >
+                <col width="40%">
+                <col width="60%">
+
+                    <tr>
+                        <td>
+                            <p class="input_header" >Entry Title:</p>
+                        </td>
+                        <td>
+                            <% if(errors != undefined){ %>
+
+                                <p class="update_entry_error" >
+                                    <% errors.forEach(function(error){ %>
+                                        <% if(error.param == 'update_entry_title'){ %>
+                                            <%= error.msg %>
+                                        <% } %>
+                                    <% }) %>
+                                </p>
+
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="update_entry_title_input" type="text" name="update_entry_title" placeholder="Entry title" value="<%= entry_data.entry_title %>" >
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="input_header">Entry Date:</p>
+                        </td>
+                        <td>
+                            <% if(errors != undefined){ %>
+
+                                <p class="update_entry_error" >
+                                    <% errors.forEach(function(error){ %>
+                                        <% if(error.param == 'update_entry_date'){ %>
+                                            <%= error.msg %>
+                                        <% } %>
+                                    <% }) %>
+                                </p>
+
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="update_entry_date_input" type="text" name="update_entry_date" placeholder="Entry date" value="<%= entry_data.entry_date %>" >
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="input_header">Entry:</p>
+                        </td>
+                        <td>
+                            <% if(errors != undefined){ %>
+
+                                <p class="update_entry_error" >
+                                    <% errors.forEach(function(error){ %>
+                                        <% if(error.param == 'update_entry_text'){ %>
+                                            <%= error.msg %>
+                                        <% } %>
+                                    <% }) %>
+                                </p>
+
+                            <% } %>
+                        </td>
+                    </tr>
+                </table>
+
+                <textarea class="update_entry_text_area" placeholder="Blog entry" name="update_entry_text" ><%= entry_data.entry_text %></textarea> <br>
+                <input class="update_entry_submit_button" type="submit" value="Submit" >
+
+            </form>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById('home_button').onclick = function(){
+            location.href = '/';
+        };
+    </script>
+
+</html>

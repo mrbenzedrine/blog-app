@@ -65,6 +65,22 @@ app.get('/create_new_blog_entry', function(req, res){
     });
 });
 
+app.get('/update_blog_entry/:id', function(req, res){
+
+    db_blog_entries.blog_entries.findOne({
+        _id: mongojs.ObjectId(req.params.id)
+    }, function(err, doc){
+
+        console.log(doc);
+
+        res.render('update_blog_entry', {
+            title: 'Update blog entry',
+            entry_data: doc
+        });
+
+    })
+});
+
 // Post function
 app.post('/create_new_blog_entry', function(req, res){
 
@@ -96,6 +112,63 @@ app.post('/create_new_blog_entry', function(req, res){
         // Now insert this into the database
 
         db_blog_entries.blog_entries.insert(new_blog_entry, function(err, result){
+            if(err){
+                console.log(err);
+            }
+            res.redirect('/')
+        })
+
+    }
+
+})
+
+// Used for updating/editing existing blog entries
+app.post('/update_blog_entry/:id', function(req, res){
+
+    req.checkBody('update_entry_title', 'Entry title is required').notEmpty();
+    req.checkBody('update_entry_date', 'Entry date is required').notEmpty();
+    req.checkBody('update_entry_text', 'Entry text is required').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if(errors){
+        // Log to console and refresh the page to show the errors in the
+        // view
+        console.log(errors);
+
+        // Still also need to fetch the original blog entry data again
+        // to display the data after the page refresh
+
+        db_blog_entries.blog_entries.findOne({
+            _id: mongojs.ObjectId(req.params.id)
+        }, function(err, doc){
+
+            console.log(doc);
+
+            res.render('update_blog_entry', {
+                title: 'Update blog entry',
+                entry_data: doc,
+                errors: errors
+            });
+
+        })
+
+    }
+    else {
+
+        // No errors, so we can update the entry in the database
+
+        var updated_blog_entry = {
+            entry_title: req.body.update_entry_title,
+            entry_date: req.body.update_entry_date,
+            entry_text: req.body.update_entry_text
+        }
+
+        db_blog_entries.blog_entries.findAndModify({
+            query: {_id: mongojs.ObjectId(req.params.id)},
+            update: {$set: updated_blog_entry},
+            new: true
+        }, function(err, doc, lastErrorObject){
             if(err){
                 console.log(err);
             }

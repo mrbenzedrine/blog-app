@@ -17,7 +17,7 @@
 
         <div class="blog_entry_container" >
             <div class="blog_entry_buttons_container" >
-                <button class="blog_entry_button" >Edit</button>
+                <button class="blog_entry_edit_button" data-id="<%= blog_entry._id %>"  >Edit</button>
                 <button class="blog_entry_button" >Delete</button>
             </div>
             <div class="blog_entry_all_text_stuff" >
@@ -37,6 +37,18 @@
         document.getElementById("new_entry_button").onclick = function (){
             location.href = 'create_new_blog_entry';
         };
+
+        var editButtonsList = document.getElementsByClassName('blog_entry_edit_button');
+        console.log(editButtonsList);
+
+        for(var i = 0; i < editButtonsList.length; i++){
+            (function(editButton){
+                editButtonsList[i].onclick = function(){
+                    location.href = 'update_blog_entry/' + editButton.getAttribute('data-id');
+                }
+            })(editButtonsList[i])
+        }
+
     </script>
 
 </html>
