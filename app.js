@@ -179,6 +179,22 @@ app.post('/update_blog_entry/:id', function(req, res){
 
 })
 
+// Delete functions
+app.delete('/delete_blog_entry/:id', function(req, res){
+
+    console.log('deleting entry')
+
+    db_blog_entries.blog_entries.remove({
+        _id: mongojs.ObjectId(req.params.id)
+    }, function(err, result){
+        if(err){
+            console.log(err)
+        }
+        res.redirect('/')
+    })
+
+})
+
 app.listen(3000, function(){
     console.log('Server started on port 3000');
 });

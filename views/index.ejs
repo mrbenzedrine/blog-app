@@ -18,7 +18,7 @@
         <div class="blog_entry_container" >
             <div class="blog_entry_buttons_container" >
                 <button class="blog_entry_edit_button" data-id="<%= blog_entry._id %>"  >Edit</button>
-                <button class="blog_entry_button" >Delete</button>
+                <button class="blog_entry_delete_button" data-id="<%= blog_entry._id %>" >Delete</button>
             </div>
             <div class="blog_entry_all_text_stuff" >
                 <h1 class="blog_entry_title" ><%= blog_entry.entry_title %></h1>
@@ -41,12 +41,48 @@
         var editButtonsList = document.getElementsByClassName('blog_entry_edit_button');
         console.log(editButtonsList);
 
+        // Add click event to edit buttons
+
         for(var i = 0; i < editButtonsList.length; i++){
             (function(editButton){
                 editButtonsList[i].onclick = function(){
                     location.href = 'update_blog_entry/' + editButton.getAttribute('data-id');
                 }
             })(editButtonsList[i])
+        }
+
+        var deleteButtonsList = document.getElementsByClassName('blog_entry_delete_button');
+
+        // Add click event to delete buttons
+
+        for(var j = 0; j < deleteButtonsList.length; j++){
+            (function(deleteButton){
+                deleteButtonsList[j].onclick = function(){
+
+                    var confirmation = confirm('Are you sure you want to delete this blog entry?');
+
+                    if(confirmation){
+
+                        // Send a delete request via AJAX
+
+                        var xhttp = new XMLHttpRequest();
+                        var url = '/delete_blog_entry/' + deleteButton.getAttribute('data-id');
+
+                        xhttp.open('DELETE', url, true);
+
+                        // Callback for a successful delete request
+                        xhttp.onload = function(){
+                            location.href = '/';
+                        };
+
+                        xhttp.send();
+
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            })(deleteButtonsList[j])
         }
 
     </script>
