@@ -94,6 +94,10 @@
                 </table>
 
                 <textarea class="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ></textarea> <br>
+
+                <p class="input_header" >Tags:</p>
+                <textarea id="new_entry_tags" placeholder="eg. ~maths" name="new_entry_tags" ></textarea> <br>
+
                 <input class="new_entry_submit_button" type="submit" value="Submit" >
 
             </form>
@@ -104,6 +108,13 @@
         document.getElementById('home_button').onclick = function(){
             location.href = '/';
         };
+
+        document.getElementById('new_entry_tags').onkeydown = function(event){
+                if(event.keyCode == 13 || event.keyCode == 10){
+                    event.preventDefault();
+                    alert('Enter key pressed in tags');
+                }
+            }
     </script>
 
 </html>

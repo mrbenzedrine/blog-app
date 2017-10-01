@@ -45,3 +45,11 @@ h2 {
     border-radius: 5px;
     border: 2px solid black;
 }
+
+.blog_entry_tags_container {
+    padding: 20px 40px 40px 40px;
+}
+
+.blog_entry_tag {
+    color: skyblue;
+}

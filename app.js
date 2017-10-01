@@ -71,11 +71,29 @@ app.get('/update_blog_entry/:id', function(req, res){
         _id: mongojs.ObjectId(req.params.id)
     }, function(err, doc){
 
+        // Can immediately pass title, date and entry text as is, but it's 
+        // better to parse the tags into one string before sending
+
+        if(doc.entry_tags.length > 0){
+            var all_tags = '~' + doc.entry_tags.join(' ~')
+        }
+        else{
+            var all_tags = '';
+        }
+        console.log(all_tags)
+
+        var entry_data = {
+            entry_title: doc.entry_title,
+            entry_date: doc.entry_date,
+            entry_text: doc.entry_text,
+            entry_tags: all_tags
+        }
+
         console.log(doc);
 
         res.render('update_blog_entry', {
             title: 'Update blog entry',
-            entry_data: doc
+            entry_data: entry_data
         });
 
     })
@@ -89,6 +107,42 @@ app.post('/create_new_blog_entry', function(req, res){
     req.checkBody('new_entry_text', 'Entry text is required').notEmpty();
 
     var errors = req.validationErrors();
+
+    console.log('Tags are coming next:')
+    console.log(req.body.new_entry_tags);
+
+    // Now need to parse the tags text input into an array of the 
+    // individual tags
+
+    if(req.body.new_entry_tags.length > 0){
+        var all_tags = req.body.new_entry_tags + ' ' // added a blank to the
+        // end to make the below code simpler
+    }
+    else{
+        var all_tags = req.body.new_entry_tags
+    }
+
+    console.log(all_tags)
+    var tags_array = [];
+    var string_array = []
+    for(var x = 0; x < all_tags.length; x++){
+        if(all_tags.charAt(x) == ' '){
+            // Then we have started a new word or we have come to the end of the
+            // tags, so turn string array into an actual string before resetting 
+            // it to be [] again
+
+            var converted_string = string_array.join("");
+            tags_array.push(converted_string);
+            string_array = [];
+        }
+        else if(all_tags.charAt(x) != '~' && all_tags.charAt(x) != ' '){
+            // Then we are inside a tag, so add the character to string_array
+            string_array.push(all_tags.charAt(x))
+        }
+    }
+
+    console.log('Tags array is:')
+    console.log(tags_array)
 
     if(errors){
         // If there are any errors, log to console and refresh the page
@@ -104,7 +158,8 @@ app.post('/create_new_blog_entry', function(req, res){
         var new_blog_entry = {
             entry_title: req.body.new_entry_title,
             entry_date: req.body.new_entry_date,
-            entry_text: req.body.new_entry_text
+            entry_text: req.body.new_entry_text,
+            entry_tags: tags_array
         }
 
         console.log(new_blog_entry);
@@ -124,6 +179,38 @@ app.post('/create_new_blog_entry', function(req, res){
 
 // Used for updating/editing existing blog entries
 app.post('/update_blog_entry/:id', function(req, res){
+
+    console.log("Editing/updating blog entry")
+
+    // Same code as in the create_blog entry post route to parse the tags 
+    // text input into an array of the individual tags
+
+    if(req.body.update_entry_tags != ""){
+        var all_tags = req.body.update_entry_tags + ' ' // added a blank to the
+        // end to make the below for loop simpler
+    }
+    else{
+        var all_tags = req.body.update_entry_tags
+    }
+
+    var tags_array = [];
+    var string_array = [];
+
+    for(var x = 0; x < all_tags.length; x++){
+        if(all_tags.charAt(x) == ' ' && all_tags.charAt(x-1) != ' '){
+            // Then we have started a new word or we have come to the end of the
+            // tags, so turn string array into an actual string before resetting 
+            // it to be [] again
+
+            var converted_string = string_array.join("");
+            tags_array.push(converted_string);
+            string_array = [];
+        }
+        else if(all_tags.charAt(x) != '~' && all_tags.charAt(x) != ' '){
+            // Then we are inside a tag, so add the character to string_array
+            string_array.push(all_tags.charAt(x))
+        }
+    }
 
     req.checkBody('update_entry_title', 'Entry title is required').notEmpty();
     req.checkBody('update_entry_date', 'Entry date is required').notEmpty();
@@ -161,7 +248,8 @@ app.post('/update_blog_entry/:id', function(req, res){
         var updated_blog_entry = {
             entry_title: req.body.update_entry_title,
             entry_date: req.body.update_entry_date,
-            entry_text: req.body.update_entry_text
+            entry_text: req.body.update_entry_text,
+            entry_tags: tags_array
         }
 
         db_blog_entries.blog_entries.findAndModify({

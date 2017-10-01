@@ -26,7 +26,25 @@
                 <p class="blog_entry_paragraph" >
                     <%= blog_entry.entry_text %>
                 </p>
+
+                <% if(blog_entry.entry_tags.length > 0){ %>
+
+                <div class="blog_entry_tags_container" >
+
+                        <% blog_entry.entry_tags.forEach(function(tag){ %>
+                            
+                            <a class="blog_entry_tag" ><%= '~' + tag %></a>
+
+                        <% }) %>
+
+                </div>
+
+                <% } %>
+
+
+
             </div>
+
         </div>
 
     <% }) %>

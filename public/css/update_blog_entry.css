@@ -16,7 +16,7 @@
     /* max-height is this percentage value because we need to take into
     account that the textarea element doesn't start at the very
     top of its container but partway down */
-    max-height: 63%;
+    max-height: 43%;
 }
 
 .update_blog_entry_form {
@@ -39,4 +39,10 @@
 
 .update_blog_entry_input_table {
     width: 50%;
+}
+
+#update_entry_tags {
+    resize: vertical;
+    width: 90%;
+    max-height: 8%;
 }

@@ -17,7 +17,7 @@
         </div>
 
         <div class="update_blog_entry_input_fields" >
-            <form class="update_blog_entry_form" accept-charset="utf-8" method="POST" action="/update_blog_entry/<%=entry_data._id%>" >
+            <form class="update_blog_entry_form" accept-charset="utf-8" method="POST" action=<%"/update_blog_entry/ + entry_data._id "%> >
 
                 <table class="update_blog_entry_input_table" >
                 <col width="40%">
@@ -94,6 +94,10 @@
                 </table>
 
                 <textarea class="update_entry_text_area" placeholder="Blog entry" name="update_entry_text" ><%= entry_data.entry_text %></textarea> <br>
+
+                <p class="input_header" >Tags:</p>
+                <textarea id="update_entry_tags" placeholder="eg. ~maths" name="update_entry_tags" ><%= entry_data.entry_tags %></textarea> <br>
+
                 <input class="update_entry_submit_button" type="submit" value="Submit" >
 
             </form>
