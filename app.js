@@ -144,7 +144,7 @@ app.post('/create_new_blog_entry', function(req, res){
     var tags_array = [];
     var string_array = []
     for(var x = 0; x < all_tags.length; x++){
-        if(all_tags.charAt(x) == ' '){
+        if(all_tags.charAt(x) == ' ' && all_tags.charAt(x-1) != ' '){
             // Then we have started a new word or we have come to the end of the
             // tags, so turn string array into an actual string before resetting 
             // it to be [] again
