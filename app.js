@@ -99,6 +99,24 @@ app.get('/update_blog_entry/:id', function(req, res){
     })
 });
 
+app.get('/filter_entries_by_tag/:tag', function(req, res){
+
+    console.log("filtering by tag")
+    console.log(req.params.tag)
+
+    db_blog_entries.blog_entries.find({
+        entry_tags: req.params.tag
+    }, function(err, docs){
+        console.log(docs);
+        res.render('filter_entries_by_tag', {
+            title: 'Filtering entries by tag',
+            blog_entries: docs,
+            tag: req.params.tag
+        });
+    })
+
+});
+
 // Post function
 app.post('/create_new_blog_entry', function(req, res){
 
