@@ -263,6 +263,12 @@ app.post('/update_blog_entry/:id', function(req, res){
             // it to be [] again
 
             var converted_string = string_array.join("");
+
+            // Now remove all sequences of "\r\n" caused by the enter key
+            // adding a carriage return character \r and a newline
+            // character \n
+
+            converted_string = converted_string.replace(/\r?\n|\r/g, "");
             tags_array.push(converted_string);
             string_array = [];
         }
