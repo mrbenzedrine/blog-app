@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="../css/main_stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../css/display_all_tags.css">
+    </head>
+
+    <body>
+
+    <h1 id="blog_title" >Blog Title</h1>
+    <h2 id="blog_author" >Author name</h2>
+    <div id="toolbar_container" >
+        <button id="home_button" class="toolbar_button" >Home</button>
+        <button id="new_entry_button" class="toolbar_button" >New entry</button>
+    </div>
+
+    <div id="all_tags_container" >
+
+        <h1>Choose a tag to filter blog entries with</h1>
+
+        <div id="all_tags" >
+        
+            <% all_tags.forEach(function(tag){ %>
+
+                <a class="tag" href="/filter_entries_by_tag/<%= tag %>" ><%= '~' + tag %></a>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById("new_entry_button").onclick = function (){
+            location.href = 'create_new_blog_entry';
+        };
+
+        document.getElementById('home_button').onclick = function(){
+            location.href = '/';
+        };
+
+    </script>
+
+</html>

@@ -11,6 +11,7 @@
     <h2 id="blog_author" >Author name</h2>
     <div id="toolbar_container" >
         <button id="new_entry_button" class="toolbar_button" >New entry</button>
+        <button id="all_tags_button" class="toolbar_button" >Tags</button>
     </div>
 
     <% blog_entries.forEach(function(blog_entry){ %>
@@ -101,6 +102,10 @@
                     }
                 }
             })(deleteButtonsList[j])
+        }
+
+        document.getElementById('all_tags_button').onclick = function(){
+            location.href = '/filter_entries_by_tag';
         }
 
     </script>

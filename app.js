@@ -117,6 +117,48 @@ app.get('/filter_entries_by_tag/:tag', function(req, res){
 
 });
 
+app.get('/filter_entries_by_tag', function(req, res){
+
+    console.log('Loading page with all tags')
+
+    // Need to form an array of ALL the tags that exist in the blog,
+    // so we need to fetch all the blog entries and then look through
+    // all their tags
+
+    db_blog_entries.blog_entries.find(function(err, docs){
+        console.log(docs);
+
+        var all_tags = []
+
+        // Now need to populate all_tags with the tags in the blog
+        // entries, being careful to not duplicate any tags
+
+        for(var x = 0; x < docs.length; x++){
+            // Access the tags array, loop through it and see if any of
+            // them are already in all_tags: if they're not, push it to
+            // all_tags, but if they ARE, don't bother pushing it to
+            // all_tags and move on to the enxt tag for that blog entry
+
+
+            // Push ALL tags for now, need to find the Javascript function
+            // that check if a variable is an element of an array
+            for(var y = 0; y < docs[x].entry_tags.length; y++){
+                if(!all_tags.includes(docs[x].entry_tags[y])){
+                    // If the tag isn't an element of all_tags, push it to
+                    // all_tags, otherwise, do nothing
+                    all_tags.push(docs[x].entry_tags[y])
+                }
+            }
+        }
+
+        res.render('display_all_tags', {
+            title: 'Choose tag to filter with',
+            all_tags: all_tags.sort()
+        });
+    })
+
+});
+
 // Post function
 app.post('/create_new_blog_entry', function(req, res){
 

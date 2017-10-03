@@ -13,6 +13,7 @@
     <div id="toolbar_container" >
         <button id="home_button" class="toolbar_button" >Home</button>
         <button id="new_entry_button" class="toolbar_button" >New entry</button>
+        <button id="all_tags_button" class="toolbar_button" >Tags</button>
     </div>
 
     <div id="tag_filter_header" >
@@ -108,6 +109,10 @@
                     }
                 }
             })(deleteButtonsList[j])
+        }
+
+        document.getElementById('all_tags_button').onclick = function(){
+            location.href = '/filter_entries_by_tag';
         }
 
     </script>
