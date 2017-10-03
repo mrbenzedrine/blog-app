@@ -246,7 +246,7 @@ app.post('/update_blog_entry/:id', function(req, res){
     // text input into an array of the individual tags
 
     if(req.body.update_entry_tags != ""){
-        var all_tags = req.body.update_entry_tags + ' ' // added a blank to the
+        var all_tags = req.body.update_entry_tags + '~' // added a tilde to the
         // end to make the below for loop simpler
     }
     else{
@@ -257,26 +257,36 @@ app.post('/update_blog_entry/:id', function(req, res){
     var string_array = [];
 
     for(var x = 0; x < all_tags.length; x++){
-        if(all_tags.charAt(x) == ' ' && all_tags.charAt(x-1) != ' '){
-            // Then we have started a new word or we have come to the end of the
-            // tags, so turn string array into an actual string before resetting 
-            // it to be [] again
+        if(all_tags.charAt(x) == '~' && x != 0){
+
+            // At the beginning of a new tag, so convert string_array to
+            // a string, remove all unwanted characters, then push that to 
+            // tag_array before starting a new string
 
             var converted_string = string_array.join("");
 
-            // Now remove all sequences of "\r\n" caused by the enter key
-            // adding a carriage return character \r and a newline
-            // character \n
+            // Remove any \r\n sequences
 
-            converted_string = converted_string.replace(/\r?\n|\r/g, "");
-            tags_array.push(converted_string);
+            converted_string = converted_string.replace(/[\n\r]+/g, '');
+
+            // Remove any blank spaces
+
+            converted_string = converted_string.replace(/\s{1,}/g, '')
+
+            if(converted_string != ''){
+                // If the enter key is pressed BEFORE any other tags, 
+                // you'll get an empty string as a tag
+                tags_array.push(converted_string);
+            }
             string_array = [];
         }
-        else if(all_tags.charAt(x) != '~' && all_tags.charAt(x) != ' '){
-            // Then we are inside a tag, so add the character to string_array
+        else if(all_tags.charAt(x) != '~'){
+            // In the middle of a tag
             string_array.push(all_tags.charAt(x))
         }
     }
+
+    console.log(tags_array)
 
     req.checkBody('update_entry_title', 'Entry title is required').notEmpty();
     req.checkBody('update_entry_date', 'Entry date is required').notEmpty();
