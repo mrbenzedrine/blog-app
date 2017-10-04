@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" >
+                            <input class="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" value=<%= data.new_entry_title %> >
                         </td>
                         <td>
                         </td>
@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" >
+                            <input class="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" value=<%= data.new_entry_date %> >
                         </td>
                         <td>
                         </td>
@@ -93,10 +93,10 @@
                     </tr>
                 </table>
 
-                <textarea class="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ></textarea> <br>
+                <textarea class="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ><%= data.new_entry_text %></textarea> <br>
 
                 <p class="input_header" >Tags:</p>
-                <textarea id="new_entry_tags" placeholder="eg. ~maths" name="new_entry_tags" ></textarea> <br>
+                <textarea id="new_entry_tags" placeholder="eg. ~maths" name="new_entry_tags" ><%= data.new_entry_tags %></textarea> <br>
 
                 <input class="new_entry_submit_button" type="submit" value="Submit" >
 

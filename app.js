@@ -60,8 +60,17 @@ app.get('/', function(req, res){
 });
 
 app.get('/create_new_blog_entry', function(req, res){
+
+    var all_input_field_data = {
+        new_entry_title: '',
+        new_entry_date: '',
+        new_entry_text: '',
+        new_entry_tags: ''
+    }
+
     res.render('create_new_blog_entry', {
-        title: 'Create new blog entry'
+        title: 'Create new blog entry',
+        data: all_input_field_data
     });
 });
 
@@ -223,9 +232,22 @@ app.post('/create_new_blog_entry', function(req, res){
         // If there are any errors, log to console and refresh the page
         console.log('ERRORS');
         console.log(errors);
+        
+        // Could check for the inputs that didn't have an error, but it's
+        // simpler to just grab all the inputs' data and pass it all to the
+        // view
+
+        var all_input_field_data = {
+            new_entry_title: req.body.new_entry_title,
+            new_entry_date: req.body.new_entry_date,
+            new_entry_text: req.body.new_entry_text,
+            new_entry_tags: req.body.new_entry_tags
+        }
+
         res.render('create_new_blog_entry', {
             title: 'Create new blog entry',
-            errors: errors
+            errors: errors,
+            data: all_input_field_data
         });
     }
     else {
