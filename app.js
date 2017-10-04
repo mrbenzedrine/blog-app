@@ -345,9 +345,27 @@ app.post('/update_blog_entry/:id', function(req, res){
 
             console.log(doc);
 
+            // Can pass title, date and text directly from doc, but the
+            // tags need to be processed again to add the tilde '~' 
+            // character in front of each tag
+
+            if(doc.entry_tags.length > 0){
+                var all_tags = '~' + doc.entry_tags.join(' ~')
+            }
+            else{
+                var all_tags = '';
+            }
+
+            var entry_data = {
+                entry_title: doc.entry_title,
+                entry_date: doc.entry_date,
+                entry_text: doc.entry_text,
+                entry_tags: all_tags
+            }
+
             res.render('update_blog_entry', {
                 title: 'Update blog entry',
-                entry_data: doc,
+                entry_data: entry_data,
                 errors: errors
             });
 
