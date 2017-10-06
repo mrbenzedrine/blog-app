@@ -9,13 +9,7 @@
     border-radius: 5px;
 }
 
-.new_entry_title_input {
-}
-
-.new_entry_date_input {
-}
-
-.new_entry_text_area {
+#new_entry_text_area {
     resize: vertical;
     width: 90%;
 
@@ -47,7 +41,7 @@
     width: 50%;
 }
 
-#new_entry_tags {
+#new_entry_tags_text_area {
     resize: vertical;
     width: 90%;
     max-height: 8%;

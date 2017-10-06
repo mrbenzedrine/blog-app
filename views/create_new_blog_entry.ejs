@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" value=<%= data.new_entry_title %> >
+                            <input id="new_entry_title_input" type="text" name="new_entry_title" placeholder="Entry title" value=<%= data.new_entry_title %> >
                         </td>
                         <td>
                         </td>
@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" value=<%= data.new_entry_date %> >
+                            <input id="new_entry_date_input" type="text" name="new_entry_date" placeholder="Entry date" value=<%= data.new_entry_date %> >
                         </td>
                         <td>
                         </td>
@@ -93,12 +93,12 @@
                     </tr>
                 </table>
 
-                <textarea class="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ><%= data.new_entry_text %></textarea> <br>
+                <textarea id="new_entry_text_area" placeholder="Blog entry" name="new_entry_text" ><%= data.new_entry_text %></textarea> <br>
 
                 <p class="input_header" >Tags:</p>
-                <textarea id="new_entry_tags" placeholder="eg. ~maths" name="new_entry_tags" ><%= data.new_entry_tags %></textarea> <br>
+                <textarea id="new_entry_tags_text_area" placeholder="eg. ~maths" name="new_entry_tags" ><%= data.new_entry_tags %></textarea> <br>
 
-                <input class="new_entry_submit_button" type="submit" value="Submit" >
+                <input id="new_entry_submit_button" type="submit" value="Submit" >
 
             </form>
         </div>
@@ -108,6 +108,29 @@
         document.getElementById('home_button').onclick = function(){
             location.href = '/';
         };
+
+        // Checks if the user has put any info in any of the input
+        // fields to then give a warning if the user then tries to navigate
+        // away from the page without submitting the form
+
+        var dataChanged = function(){
+            var title_element_value_changed = (document.getElementById('new_entry_title_input').value != '');
+            var date_element_value_changed = (document.getElementById('new_entry_date_input').value != '');
+            var text_element_value_changed = (document.getElementById('new_entry_text_area').value != '');
+            var tags_entry_value_changed = (document.getElementById('new_entry_tags_text_area').value != '');
+
+            var data_changed = title_element_value_changed || date_element_value_changed || text_element_value_changed || tags_entry_value_changed;
+
+            return data_changed;
+        }
+
+        window.onbeforeunload = function(e){
+            console.log(e);
+            if(dataChanged() && e.target.activeElement.id != "new_entry_submit_button"){
+                return "";
+            }
+        }
+
     </script>
 
 </html>
