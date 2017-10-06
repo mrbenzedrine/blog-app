@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="update_entry_title_input" type="text" name="update_entry_title" placeholder="Entry title" value="<%= entry_data.entry_title %>" >
+                            <input id="update_entry_title_input" type="text" name="update_entry_title" placeholder="Entry title" value="<%= entry_data.entry_title %>" >
                         </td>
                         <td>
                         </td>
@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="update_entry_date_input" type="text" name="update_entry_date" placeholder="Entry date" value="<%= entry_data.entry_date %>" >
+                            <input id="update_entry_date_input" type="text" name="update_entry_date" placeholder="Entry date" value="<%= entry_data.entry_date %>" >
                         </td>
                         <td>
                         </td>
@@ -93,12 +93,12 @@
                     </tr>
                 </table>
 
-                <textarea class="update_entry_text_area" placeholder="Blog entry" name="update_entry_text" ><%= entry_data.entry_text %></textarea> <br>
+                <textarea id="update_entry_text_area" placeholder="Blog entry" name="update_entry_text" ><%= entry_data.entry_text %></textarea> <br>
 
                 <p class="input_header" >Tags:</p>
-                <textarea id="update_entry_tags" placeholder="eg. ~maths" name="update_entry_tags" ><%= entry_data.entry_tags %></textarea> <br>
+                <textarea id="update_entry_tags_text_area" placeholder="eg. ~maths" name="update_entry_tags" ><%= entry_data.entry_tags %></textarea> <br>
 
-                <input class="update_entry_submit_button" type="submit" value="Submit" >
+                <input id="update_entry_submit_button" type="submit" value="Submit" >
 
             </form>
         </div>
@@ -108,6 +108,28 @@
         document.getElementById('home_button').onclick = function(){
             location.href = '/';
         };
+
+        // Checks if the user has edited any of the information to then
+        // give a warning if the user tries to navigate away without 
+        // submitting the form
+
+        var dataChanged = function(){
+            var title_element_value_changed = (document.getElementById('update_entry_title_input').value != "<%= entry_data.entry_title %>");
+            var date_element_value_changed = (document.getElementById('update_entry_date_input').value != "<%= entry_data.entry_date %>");
+            var text_element_value_changed = (document.getElementById('update_entry_text_area').value != "<%= entry_data.entry_text %>");
+            var tags_entry_value_changed = (document.getElementById('update_entry_tags_text_area').value != "<%= entry_data.entry_tags %>");
+
+            var data_changed = title_element_value_changed || date_element_value_changed || text_element_value_changed || tags_entry_value_changed;
+
+            return data_changed;
+        }
+
+        window.onbeforeunload = function(e){
+            if(dataChanged() && e.target.activeElement.id != "update_entry_submit_button"){
+                return "";
+            }
+        }
+
     </script>
 
 </html>

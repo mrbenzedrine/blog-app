@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 
-.update_entry_text_area {
+#update_entry_text_area {
     resize: vertical;
     width: 90%;
 
@@ -41,7 +41,7 @@
     width: 50%;
 }
 
-#update_entry_tags {
+#update_entry_tags_text_area {
     resize: vertical;
     width: 90%;
     max-height: 8%;
